@@ -2,6 +2,7 @@ from sys import exit
 from random import randint
 from textwrap import dedent
 
+
 class Scene(object):
     """docstring for Scene."""
 
@@ -9,6 +10,7 @@ class Scene(object):
         print("This scene is not yet configured.")
         print("Subclass it and implement enter().")
         exit(1)
+
 
 class Engine(object):
 
@@ -26,6 +28,7 @@ class Engine(object):
         # be sure to print out the last scene
         current_scene.enter()
 
+
 class Death(Scene):
     """docstring for Death."""
 
@@ -38,8 +41,9 @@ class Death(Scene):
     ]
 
     def enter(self):
-        print(Death.quips[randint(0, len(self.quips)-1)])
+        print(Death.quips[randint(0, len(self.quips) - 1)])
         exit(1)
+
 
 class CentralCorridor(Scene):
     """docstring for CentralCorridor."""
@@ -75,7 +79,7 @@ class CentralCorridor(Scene):
             return 'death'
 
         elif action == "dodge!":
-                print(dedent("""
+            print(dedent("""
                     Like a world class boxer you dodge, weave, slip and
                     slide right as the Gorthon's blaster cranks a laser
                     past your head. In the middle of your artful dodge
@@ -83,7 +87,7 @@ class CentralCorridor(Scene):
                     wall and pass out. You wake up shortly after only to
                     die as the Gorthon stomps on your head and eats you.
                     """))
-                return 'death'
+            return 'death'
 
         elif action == "tell a joke":
             print(dedent("""
@@ -102,6 +106,7 @@ class CentralCorridor(Scene):
             print("DOES NOT COMPUTE!")
             return 'central_corridor'
 
+
 class LaserWeaponArmory(Scene):
 
     def enter(self):
@@ -116,7 +121,7 @@ class LaserWeaponArmory(Scene):
             code is 3 digits.
             """))
 
-        code = f"{randint(1,9)}{randint(1,9)}{randint(1,9)}"
+        code = f"{randint(1, 9)}{randint(1, 9)}{randint(1, 9)}"
         guess = input("[keypad]> ")
         guesses = 0
 
@@ -141,6 +146,7 @@ class LaserWeaponArmory(Scene):
                     Gothon blow up the ship from their ship and you die.
                     """))
                 return 'death'
+
 
 class TheBridge(Scene):
 
@@ -198,7 +204,7 @@ class EscapePod(Scene):
             There are 5 pods, which one do you take?
             """))
 
-        good_pod = randint(1,5)
+        good_pod = randint(1, 5)
         guess = input("[pod #]> ")
 
         if int(guess) != good_pod:
@@ -221,6 +227,7 @@ class EscapePod(Scene):
 
             return 'finished'
 
+
 class Finished(Scene):
 
     def enter(self):
@@ -229,14 +236,13 @@ class Finished(Scene):
 
 
 class Map(object):
-
     scenes = {
-    'central_corridor': CentralCorridor(),
-    'laser_weapon_armory': LaserWeaponArmory(),
-    'the_bridge': TheBridge(),
-    'escape_pod': EscapePod(),
-    'death': Death(),
-    'finished': Finished(),
+        'central_corridor': CentralCorridor(),
+        'laser_weapon_armory': LaserWeaponArmory(),
+        'the_bridge': TheBridge(),
+        'escape_pod': EscapePod(),
+        'death': Death(),
+        'finished': Finished(),
     }
 
     def __init__(self, start_scene):
